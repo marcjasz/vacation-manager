@@ -1,24 +1,10 @@
-# README
-
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+1. Download and install NodeJs, npm, PostgreSQL, Ruby, RubyGems, Yarn
+2. Clone the repo
+3. Run the following commands
+    * enter postgres console with `psql -U postgres`
+    * `create role vacation_manager with createdb login password '1234';`
+    * exit psql with `\q`
+    * `rake db:setup`
+    * `rails db:migrate` (run this after adding every database migration)
+    * `rails install:webpacker`
+4. `rails server` to run the server on localhost:3000
