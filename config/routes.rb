@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :service_providers
   resources :invoices
   resources :organizers
   resources :vacations
