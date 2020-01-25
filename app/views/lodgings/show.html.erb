@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Owner:</strong>
+  <%= @lodging.owner %>
+</p>
+
+<p>
+  <strong>Company:</strong>
+  <%= @lodging.company %>
+</p>
+
+<p>
+  <strong>Capacity:</strong>
+  <%= @lodging.capacity %>
+</p>
+
+<p>
+  <strong>Address:</strong>
+  <%= @lodging.address %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @lodging.name %>
+</p>
+
+<p>
+  <strong>Phone number:</strong>
+  <%= @lodging.phone_number %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @lodging.email %>
+</p>
+
+<%= link_to 'Edit', edit_lodging_path(@lodging) %> |
+<%= link_to 'Back', lodgings_path %>

@@ -10,10 +10,43 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_22_134302) do
+ActiveRecord::Schema.define(version: 2020_01_25_170433) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "counselors", force: :cascade do |t|
+    t.string "pesel"
+    t.string "name"
+    t.string "surname"
+    t.string "address"
+    t.string "phone_number"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "groups", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "invoices", force: :cascade do |t|
+    t.date "date"
+    t.decimal "amount"
+    t.string "service"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "organizers", force: :cascade do |t|
+    t.string "email"
+    t.string "nip"
+    t.string "name"
+    t.string "address"
+    t.string "phone_number"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "participants", force: :cascade do |t|
     t.string "pesel", limit: 13, null: false
@@ -21,6 +54,36 @@ ActiveRecord::Schema.define(version: 2020_01_22_134302) do
     t.string "surname", null: false
     t.string "school"
     t.string "phone_number", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "participations", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "payments", force: :cascade do |t|
+    t.decimal "amount"
+    t.date "date"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "service_providers", force: :cascade do |t|
+    t.string "nip"
+    t.string "address"
+    t.string "name"
+    t.string "phone_number"
+    t.string "email"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "vacations", force: :cascade do |t|
+    t.date "start_date"
+    t.date "end_date"
+    t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
