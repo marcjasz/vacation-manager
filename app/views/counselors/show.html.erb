@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Pesel:</strong>
+  <%= @counselor.pesel %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @counselor.name %>
+</p>
+
+<p>
+  <strong>Surname:</strong>
+  <%= @counselor.surname %>
+</p>
+
+<p>
+  <strong>Address:</strong>
+  <%= @counselor.address %>
+</p>
+
+<p>
+  <strong>Phone number:</strong>
+  <%= @counselor.phone_number %>
+</p>
+
+<%= link_to 'Edit', edit_counselor_path(@counselor) %> |
+<%= link_to 'Back', counselors_path %>
