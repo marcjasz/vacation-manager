@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :payments
   resources :participations
   resources :groups
   resources :participants
