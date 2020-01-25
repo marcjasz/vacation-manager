@@ -1,4 +1,11 @@
 <p id="notice"><%= notice %></p>
 
+<p>
+  <strong>Counselors:</strong>
+  <% @group.counselors.each do |counselor| %> 
+    <%= counselor.full_name %> 
+  <% end %>
+</p>
+
 <%= link_to 'Edit', edit_group_path(@group) %> |
 <%= link_to 'Back', groups_path %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_25_170433) do
+ActiveRecord::Schema.define(version: 2020_01_25_181358) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,13 @@ ActiveRecord::Schema.define(version: 2020_01_25_170433) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "counselors_groups", id: false, force: :cascade do |t|
+    t.bigint "group_id", null: false
+    t.bigint "counselor_id", null: false
+    t.index ["counselor_id"], name: "index_counselors_groups_on_counselor_id"
+    t.index ["group_id"], name: "index_counselors_groups_on_group_id"
+  end
+
   create_table "groups", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -34,6 +41,18 @@ ActiveRecord::Schema.define(version: 2020_01_25_170433) do
     t.date "date"
     t.decimal "amount"
     t.string "service"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "lodgings", force: :cascade do |t|
+    t.string "owner"
+    t.string "company"
+    t.integer "capacity"
+    t.string "address"
+    t.string "name"
+    t.string "phone_number"
+    t.string "email"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

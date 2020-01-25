@@ -69,6 +69,6 @@ class CounselorsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def counselor_params
-      params.require(:counselor).permit(:pesel, :name, :surname, :address, :phone_number)
+      params.require(:counselor).permit(:pesel, :name, :surname, :address, :phone_number, :group_ids)
     end
 end
