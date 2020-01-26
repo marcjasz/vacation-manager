@@ -25,5 +25,28 @@
   <%= @participant.phone_number %>
 </p>
 
+<p>
+  <strong>Groups:</strong>
+  <table>
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Vacation</th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @participant.groups.each do |group| %>
+        <tr>
+          <td><%= group.id %></td>
+          <td><%= link_to group.vacation.name, group.vacation %></td>
+          <td><%= link_to 'Show', group %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</p>
+
 <%= link_to 'Edit', edit_participant_path(@participant) %> |
 <%= link_to 'Back', participants_path %>

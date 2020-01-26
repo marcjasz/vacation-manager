@@ -12,5 +12,12 @@
   <% end %>
 </p>
 
+<p>
+  <strong>Participants:</strong>
+  <% @group.participants.each do |participant| %> 
+    <%= link_to participant.full_name, participant %>
+  <% end %>
+</p>
+
 <%= link_to 'Edit', edit_group_path(@group) %> |
 <%= link_to 'Back', groups_path %>
