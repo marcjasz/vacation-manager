@@ -1,6 +1,7 @@
 class Participant < ApplicationRecord
     has_many :participations
     has_many :groups, through: :participations
+    has_many :payments, through: :participations
 
     def full_name
         name + " " + surname

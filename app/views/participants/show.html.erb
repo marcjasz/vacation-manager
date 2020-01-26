@@ -32,16 +32,16 @@
       <tr>
         <th>Id</th>
         <th>Vacation</th>
-        <th colspan="3"></th>
+        <th colspan="9">Payments</th>
       </tr>
     </thead>
 
     <tbody>
       <% @participant.groups.each do |group| %>
         <tr>
-          <td><%= group.id %></td>
+          <td><%= link_to group.id, group %></td>
           <td><%= link_to group.vacation.name, group.vacation %></td>
-          <td><%= link_to 'Show', group %></td>
+          <td><%= render 'payments', participant: @participant, group: group%></td>
         </tr>
       <% end %>
     </tbody>

@@ -3,4 +3,5 @@ class Group < ApplicationRecord
     has_and_belongs_to_many :counselors 
     has_many :participations
     has_many :participants, through: :participations
+    has_many :payments, through: :participations
 end
