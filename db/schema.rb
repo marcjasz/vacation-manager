@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_26_164829) do
+ActiveRecord::Schema.define(version: 2020_01_26_172955) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -111,9 +111,12 @@ ActiveRecord::Schema.define(version: 2020_01_26_164829) do
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "organizer_id"
+    t.index ["organizer_id"], name: "index_vacations_on_organizer_id"
   end
 
   add_foreign_key "groups", "vacations"
   add_foreign_key "participations", "groups"
   add_foreign_key "participations", "participants"
+  add_foreign_key "vacations", "organizers"
 end

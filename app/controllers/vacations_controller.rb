@@ -69,6 +69,6 @@ class VacationsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def vacation_params
-      params.require(:vacation).permit(:start_date, :end_date, :name)
+      params.require(:vacation).permit(:start_date, :end_date, :name, :organizer_id)
     end
 end

@@ -16,6 +16,11 @@
 </p>
 
 <p>
+  <strong>Organizer:</strong>
+    <%= link_to @vacation.organizer&.name, @vacation.organizer %> 
+</p>
+
+<p>
   <strong>Groups:</strong>
   <% @vacation.groups.each do |group| %> 
     <%= link_to group.id, group_path(group) %> 

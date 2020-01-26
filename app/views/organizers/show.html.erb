@@ -25,5 +25,12 @@
   <%= @organizer.phone_number %>
 </p>
 
+<p>
+  <strong>Vacations:</strong>
+  <% @organizer.vacations.each do |vacation| %> 
+    <%= link_to vacation.name, vacation %> 
+  <% end %>
+</p>
+
 <%= link_to 'Edit', edit_organizer_path(@organizer) %> |
 <%= link_to 'Back', organizers_path %>
