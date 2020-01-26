@@ -1,6 +1,11 @@
 <p id="notice"><%= notice %></p>
 
 <p>
+  <strong>Vacation:</strong>
+  <%= link_to @group.vacation.name, vacation_path(@group.vacation) %> 
+</p>
+
+<p>
   <strong>Counselors:</strong>
   <% @group.counselors.each do |counselor| %> 
     <%= counselor.full_name %> 

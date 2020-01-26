@@ -11,6 +11,11 @@
     </div>
   <% end %>
 
+  <div class ="field">
+    <%= form.label :vacation %>
+    <%= form.collection_select(:vacation_id, Vacation.all, :id, :name, prompt: true) %>
+  </div>
+
   <div class="field">
     <%= form.label :counselor %>
     <%= form.collection_check_boxes(:counselor_ids, Counselor.all, :id, :full_name) %>

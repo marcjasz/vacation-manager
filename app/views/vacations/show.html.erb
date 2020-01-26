@@ -15,5 +15,12 @@
   <%= @vacation.name %>
 </p>
 
+<p>
+  <strong>Groups:</strong>
+  <% @vacation.groups.each do |group| %> 
+    <%= link_to group.id, group_path(group) %> 
+  <% end %>
+</p>
+
 <%= link_to 'Edit', edit_vacation_path(@vacation) %> |
 <%= link_to 'Back', vacations_path %>
