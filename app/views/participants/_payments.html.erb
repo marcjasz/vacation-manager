@@ -3,6 +3,7 @@
     <tr>
     <th>Date</th>
     <th>Amount</th>
+    <th><%= render 'payment_form', action: 'new', participation: Participation.find_by(participant: @participant, group: group) %></th>
     </tr>
 </thead>
 
