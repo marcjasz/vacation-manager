@@ -13,6 +13,7 @@
 #
 # Configure Using Gemfile
 # gem 'pg'
+# psql vacation_manager_development vacation_manager
 #
 default: &default
   adapter: postgresql

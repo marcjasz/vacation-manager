@@ -1,7 +1,7 @@
 class CreateParticipants < ActiveRecord::Migration[6.0]
   def change
     create_table :participants do |t|
-      t.string :pesel, limit: 13, null: false
+      t.string :pesel, limit: 11, null: false
       t.string :name, null: false
       t.string :surname, null: false
       t.string :school
