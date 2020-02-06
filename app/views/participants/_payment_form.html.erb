@@ -1,5 +1,5 @@
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+<button type="button" class="btn btn-outline-success btn-sm mx-3" data-toggle="modal" data-target="#exampleModalCenter">
     <% if action == 'new' %>
         Add
     <% end %>
@@ -10,7 +10,7 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle"><%= participation.group.vacation.name %> - group <%= participation.group.id %></h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -31,11 +31,7 @@
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">
-                    <div class="actions">
-                        <%= form.submit %>
-                    </div>
-                </button>
+                <%= form.submit class: "btn btn-primary actions" %>
             </div>
         <% end %>
       </div>
