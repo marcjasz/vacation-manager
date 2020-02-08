@@ -25,14 +25,16 @@
   <%= @participant.phone_number %>
 </p>
 
+<br>
+<h5>Groups:</h5>
 <p>
-  <strong>Groups:</strong>
-  <table>
+  <table class="table">
     <thead>
       <tr>
         <th>Id</th>
         <th>Vacation</th>
-        <th colspan="9">Payments</th>
+        <th>Actions</th>
+        <th colspan="3">Payments</th>
       </tr>
     </thead>
 
@@ -41,6 +43,11 @@
         <tr>
           <td><%= link_to group.id, group %></td>
           <td><%= link_to group.vacation.name, group.vacation %></td>
+          <td><%= link_to 'Remove from group', 
+                  remove_participant_from_group_path(id: @participant.id, group_id: group.id), 
+                  method: :put, 
+                  data: { confirm: 'Are you sure?' },
+                  class: "btn btn-sm btn-outline-danger" %></td>
           <td><%= render 'payments', participant: @participant, group_id: group.id %></td>
         </tr>
       <% end %>

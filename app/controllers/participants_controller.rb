@@ -1,5 +1,5 @@
 class ParticipantsController < ApplicationController
-  before_action :set_participant, only: [:show, :edit, :update, :destroy]
+  before_action :set_participant, only: [:show, :edit, :update, :destroy, :remove_group, :assign_group]
 
   # GET /participants
   # GET /participants.json
@@ -51,6 +51,32 @@ class ParticipantsController < ApplicationController
     end
   end
 
+  def assign_group
+    participation = Participation.find_or_create_by(participant: @participant, group_id: group_param)
+    respond_to do |format|
+      if participation
+        format.html { redirect_to @participant, notice: 'Participant was successfully updated.' }
+        format.json { render :show, status: :ok, location: @participant }
+      else
+        format.html { render :edit }
+        format.json { render json: @participant.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def remove_group
+    participation = Participation.find_by(participant_id: group_params[:id], group_id: group_params[:group_id])
+    respond_to do |format|
+      if participation&.destroy!
+        format.html { redirect_to @participant, notice: 'Participant was successfully updated.' }
+        format.json { render :show, status: :ok, location: @participant }
+      else
+        format.html { render :show }
+        format.json { render json: @participant.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   # DELETE /participants/1
   # DELETE /participants/1.json
   def destroy
@@ -69,6 +95,10 @@ class ParticipantsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def participant_params
-      params.require(:participant).permit(:pesel, :name, :surname, :school, :phone_number, :group_id)
+      params.require(:participant).permit(:pesel, :name, :surname, :school, :phone_number)
+    end
+
+    def group_params
+      params.permit(:id, :group_id)
     end
 end
