@@ -3,12 +3,12 @@
     <tr>
     <th>Date</th>
     <th>Amount</th>
-    <th><%= render 'payment_form', action: 'new', participation: Participation.find_by(participant: @participant, group: group) %></th>
+    <th><%= render 'payment_form', action: 'new', participation: Participation.find_by(participant: @participant, group_id: group_id) %></th>
     </tr>
 </thead>
 
 <tbody>
-    <% Participation.find_by(participant: @participant, group: group).payments.each do |payment| %>
+    <% Participation.find_by(participant: @participant, group_id: group_id).payments.each do |payment| %>
     <tr>
         <td><%= payment.date %></td>
         <td><%= payment.amount %></td>

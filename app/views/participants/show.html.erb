@@ -41,7 +41,7 @@
         <tr>
           <td><%= link_to group.id, group %></td>
           <td><%= link_to group.vacation.name, group.vacation %></td>
-          <td><%= render 'payments', participant: @participant, group: group %></td>
+          <td><%= render 'payments', participant: @participant, group_id: group.id %></td>
         </tr>
       <% end %>
     </tbody>
