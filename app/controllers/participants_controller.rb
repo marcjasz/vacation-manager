@@ -52,13 +52,13 @@ class ParticipantsController < ApplicationController
   end
 
   def assign_group
-    participation = Participation.find_or_create_by(participant: @participant, group_id: group_param)
+    participation = Participation.find_or_create_by(participant_id: group_params[:id], group_id: group_params[:group_id])
     respond_to do |format|
-      if participation
+      if participation.valid?
         format.html { redirect_to @participant, notice: 'Participant was successfully updated.' }
         format.json { render :show, status: :ok, location: @participant }
       else
-        format.html { render :edit }
+        format.html { redirect_to @participant, alert: participation.errors.full_messages.join(',') }
         format.json { render json: @participant.errors, status: :unprocessable_entity }
       end
     end

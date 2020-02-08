@@ -1,4 +1,5 @@
-<p id="notice"><%= notice %></p>
+<p id="notice" class="font-weight-bold text-success"><%= notice %></p>
+<p id="alert" class="font-weight-bold text-danger"><%= alert %></p>
 
 <p>
   <strong>Pesel:</strong>
@@ -45,7 +46,7 @@
           <td><%= link_to group.vacation.name, group.vacation %></td>
           <td><%= link_to 'Remove from group', 
                   remove_participant_from_group_path(id: @participant.id, group_id: group.id), 
-                  method: :put, 
+                  method: :post, 
                   data: { confirm: 'Are you sure?' },
                   class: "btn btn-sm btn-outline-danger" %></td>
           <td><%= render 'payments', participant: @participant, group_id: group.id %></td>
@@ -54,6 +55,25 @@
     </tbody>
   </table>
 </p>
+<p>
+  <button class="btn btn-success" type="button" data-toggle="collapse" data-target="#addGroup" aria-expanded="false" aria-controls="addGroup">
+    Add group
+  </button>
+</p>
+<div class="collapse" id="addGroup">
+  <div class="card card-body">
+    <%= form_with(url: add_participant_to_group_path, local: true) do |form| %>
+        <div class="field">
+            <%= form.label :groups %>
+            <%= form.grouped_collection_select(:group_id, Vacation.all, :groups, :name, :id, :id, {}) %>
+        </div>
+
+        <div class="modal-footer">
+            <%= form.submit class: "btn btn-primary actions" %>
+        </div>
+    <% end %>
+  </div>
+</div>
 
 <%= link_to 'Edit', edit_participant_path(@participant) %> |
 <%= link_to 'Back', participants_path %>
