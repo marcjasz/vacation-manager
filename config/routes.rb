@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  root 'vacations#index'
   resources :lodgings
   resources :service_providers
   resources :invoices
