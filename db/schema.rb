@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_09_162318) do
+ActiveRecord::Schema.define(version: 2020_02_09_210406) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 2020_02_09_162318) do
     t.string "phone_number", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["pesel"], name: "index_counselors_on_pesel", unique: true
   end
 
   create_table "counselors_groups", id: false, force: :cascade do |t|
@@ -70,6 +71,7 @@ ActiveRecord::Schema.define(version: 2020_02_09_162318) do
     t.string "email"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["name"], name: "index_lodgings_on_name", unique: true
   end
 
   create_table "organizers", force: :cascade do |t|
@@ -80,6 +82,7 @@ ActiveRecord::Schema.define(version: 2020_02_09_162318) do
     t.string "phone_number", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["nip"], name: "index_organizers_on_nip", unique: true
   end
 
   create_table "participants", force: :cascade do |t|
@@ -90,6 +93,7 @@ ActiveRecord::Schema.define(version: 2020_02_09_162318) do
     t.string "phone_number", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["pesel"], name: "index_participants_on_pesel", unique: true
   end
 
   create_table "participations", force: :cascade do |t|
@@ -118,6 +122,7 @@ ActiveRecord::Schema.define(version: 2020_02_09_162318) do
     t.string "email"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["nip"], name: "index_service_providers_on_nip", unique: true
   end
 
   create_table "vacations", force: :cascade do |t|

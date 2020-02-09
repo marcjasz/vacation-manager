@@ -4,6 +4,6 @@ class Lodging < ApplicationRecord
     validates :company, presence: true
     validates :capacity, presence: true
     validates :address, presence: true
-    validates :name, presence: true
+    validates :name, presence: true, uniqueness: true
     validates :phone_number, presence: true
 end
