@@ -21,10 +21,21 @@
 </p>
 
 <p>
-  <strong>Groups:</strong>
-  <% @vacation.groups.each do |group| %> 
-    <%= link_to group.id, group_path(group) %> 
-  <% end %>
+  <a class="dropdown-toggle btn-sm btn-secondary" data-toggle="collapse" href="#showGroups" aria-expanded="false" aria-controls="showGroups">
+    Groups
+  </a>
+  <div class="collapse" id="showGroups">
+    <%= render 'groups', vacation: @vacation %>
+  </div>
+</p>
+
+<p>
+  <a class="dropdown-toggle btn-sm btn-secondary" data-toggle="collapse" href="#showInvoices" aria-expanded="false" aria-controls="showInvoices">
+    Invoices
+  </a>
+  <div class="collapse" id="showInvoices">
+    <%= render 'invoices', vacation: @vacation %>
+  </div>
 </p>
 
 <%= link_to 'Edit', edit_vacation_path(@vacation) %> |

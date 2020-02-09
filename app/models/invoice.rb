@@ -4,6 +4,6 @@ class Invoice < ApplicationRecord
     after_create :update_nips
 
     def update_nips
-        ActiveRecord::Base.connection.execute("CALL update_nips(#{self.id})")
+        ActiveRecord::Base.connection.execute("CALL update_nips(#{id})")
     end
 end
