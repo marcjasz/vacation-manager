@@ -26,6 +26,16 @@
     <%= form.text_field :service %>
   </div>
 
+  <div class="field">
+      <%= form.label :vacation %>
+      <%= form.collection_select(:vacation_id, Vacation.all, :id, :name, prompt: true) %>
+  </div>
+
+  <div class="field">
+      <%= form.label :service_provider %>
+      <%= form.collection_select(:service_provider_id, ServiceProvider.all, :id, :name, prompt: true) %>
+  </div>
+
   <div class="actions">
     <%= form.submit %>
   </div>

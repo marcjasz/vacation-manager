@@ -24,11 +24,15 @@
   <strong>Email:</strong>
   <%= @service_provider.email %>
 </p>
-</p>
+
 <div>
   <h4>Invoices</h4>
   <%= render 'invoices', service_provider: @service_provider %>
 </div>
+
+<p>
+  <%= link_to 'Add invoice', new_invoice_path(service_provider_id: @service_provider.id), class: 'btn-sm btn-outline-success' %>
+</p>
 
 <%= link_to 'Edit', edit_service_provider_path(@service_provider) %> |
 <%= link_to 'Back', service_providers_path %>
