@@ -24,6 +24,11 @@
   <strong>Email:</strong>
   <%= @service_provider.email %>
 </p>
+<br>
+<div>
+  <h4>Invoices</h4>
+  <%= render 'invoices', service_provider: @service_provider %>
+</div>
 
 <%= link_to 'Edit', edit_service_provider_path(@service_provider) %> |
 <%= link_to 'Back', service_providers_path %>
