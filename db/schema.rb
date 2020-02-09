@@ -16,11 +16,11 @@ ActiveRecord::Schema.define(version: 2020_02_09_162318) do
   enable_extension "plpgsql"
 
   create_table "counselors", force: :cascade do |t|
-    t.string "pesel"
-    t.string "name"
-    t.string "surname"
-    t.string "address"
-    t.string "phone_number"
+    t.string "pesel", limit: 13, null: false
+    t.string "name", null: false
+    t.string "surname", null: false
+    t.string "address", null: false
+    t.string "phone_number", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -47,19 +47,17 @@ ActiveRecord::Schema.define(version: 2020_02_09_162318) do
   end
 
   create_table "invoices", force: :cascade do |t|
-    t.date "date"
-    t.decimal "amount"
-    t.string "service"
+    t.date "date", null: false
+    t.decimal "amount", null: false
+    t.string "service", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "service_provider_id"
-    t.bigint "vacations_id"
     t.bigint "vacation_id"
     t.string "organizer_nip"
     t.string "service_provider_nip"
     t.index ["service_provider_id"], name: "index_invoices_on_service_provider_id"
     t.index ["vacation_id"], name: "index_invoices_on_vacation_id"
-    t.index ["vacations_id"], name: "index_invoices_on_vacations_id"
   end
 
   create_table "lodgings", force: :cascade do |t|
@@ -75,17 +73,17 @@ ActiveRecord::Schema.define(version: 2020_02_09_162318) do
   end
 
   create_table "organizers", force: :cascade do |t|
+    t.string "nip", null: false
     t.string "email"
-    t.string "nip"
-    t.string "name"
-    t.string "address"
-    t.string "phone_number"
+    t.string "name", null: false
+    t.string "address", null: false
+    t.string "phone_number", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "participants", force: :cascade do |t|
-    t.string "pesel", limit: 13, null: false
+    t.string "pesel", limit: 11, null: false
     t.string "name", null: false
     t.string "surname", null: false
     t.string "school"
@@ -104,8 +102,8 @@ ActiveRecord::Schema.define(version: 2020_02_09_162318) do
   end
 
   create_table "payments", force: :cascade do |t|
-    t.decimal "amount"
-    t.date "date"
+    t.decimal "amount", null: false
+    t.date "date", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "participation_id"
@@ -123,9 +121,9 @@ ActiveRecord::Schema.define(version: 2020_02_09_162318) do
   end
 
   create_table "vacations", force: :cascade do |t|
-    t.date "start_date"
-    t.date "end_date"
-    t.string "name"
+    t.string "name", null: false
+    t.date "start_date", null: false
+    t.date "end_date", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "organizer_id"
@@ -135,7 +133,6 @@ ActiveRecord::Schema.define(version: 2020_02_09_162318) do
   add_foreign_key "groups", "vacations"
   add_foreign_key "invoices", "service_providers"
   add_foreign_key "invoices", "vacations"
-  add_foreign_key "invoices", "vacations", column: "vacations_id"
   add_foreign_key "participations", "groups"
   add_foreign_key "participations", "participants"
   add_foreign_key "payments", "participations"
