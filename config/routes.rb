@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   resources :organizers
   resources :vacations
   resources :counselors
+  post '/counselors/:id/assign_group', to: 'counselors#assign_group', as: 'add_counselor_to_group'
+  post '/counselors/:id/remove_group/:group_id', to: 'counselors#remove_group', as: 'remove_counselor_from_group'
   resources :payments
   resources :participations
   resources :groups

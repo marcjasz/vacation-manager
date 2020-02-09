@@ -36,11 +36,6 @@
     <%= form.text_field :phone_number %>
   </div>
 
-  <div class="field">
-    <%= form.label :groups %>
-    <%= form.grouped_collection_select(:group_id, Vacation.all, :groups, :name, :id, :id, {}, { multiple: true }) %>
-  </div>
-
   <div class="actions">
     <%= form.submit %>
   </div>
