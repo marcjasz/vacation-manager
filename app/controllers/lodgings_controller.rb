@@ -1,5 +1,5 @@
 class LodgingsController < ApplicationController
-  before_action :set_lodging, only: [:show, :edit, :update, :destroy]
+  before_action :set_lodging, only: [:show, :edit, :update, :destroy, :assign_group, :remove_group]
 
   # GET /lodgings
   # GET /lodgings.json
@@ -51,6 +51,35 @@ class LodgingsController < ApplicationController
     end
   end
 
+  def assign_group
+    group_ids = @lodging.group_ids
+    respond_to do |format|
+      if group_ids.include?(group_params[:group_id].to_i)
+        format.html { redirect_to @lodging, alert: 'Group already assigned.' }
+        format.json { render message: 'Group already assigned.', status: :unprocessable_entity }
+      elsif @lodging.update!(group_ids: group_ids.append(group_params[:group_id]))
+        format.html { redirect_to @lodging, notice: 'Lodging was successfully updated.' }
+        format.json { render :show, status: :ok, location: @lodging }
+      else
+        format.html { redirect_to @lodging, alert: @lodging.errors.full_messages.join(',') }
+        format.json { render json: @lodging.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def remove_group
+    group_ids = @lodging.group_ids
+    respond_to do |format|
+      if @lodging.update!(group_ids: group_ids.without(group_params[:group_id].to_i))
+        format.html { redirect_to @lodging, notice: 'Lodging was successfully updated.' }
+        format.json { render :show, status: :ok, location: @lodging }
+      else
+        format.html { redirect_to @lodging, alert: @lodging.errors.full_messages.join(',') }
+        format.json { render json: @lodging.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   # DELETE /lodgings/1
   # DELETE /lodgings/1.json
   def destroy
@@ -70,5 +99,9 @@ class LodgingsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def lodging_params
       params.require(:lodging).permit(:owner, :company, :capacity, :address, :name, :phone_number, :email)
+    end
+
+    def group_params
+      params.permit(:id, :group_id)
     end
 end

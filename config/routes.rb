@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   root 'vacations#index'
   resources :lodgings
+  post '/lodgings/:id/assign_group', to: 'lodgings#assign_group', as: 'add_lodging_to_group'
+  post '/lodgings/:id/remove_group/:group_id', to: 'lodgings#remove_group', as: 'remove_lodging_from_group'
   resources :service_providers
   resources :invoices
   resources :organizers

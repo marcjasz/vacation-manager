@@ -1,4 +1,5 @@
-<p id="notice"><%= notice %></p>
+<p id="notice" class="font-weight-bold text-success"><%= notice %></p>
+<p id="alert" class="font-weight-bold text-danger"><%= alert %></p>
 
 <p>
   <strong>Owner:</strong>
@@ -36,10 +37,51 @@
 </p>
 
 <br>
-<h4>Groups</h4>
+<h5>Groups:</h5>
 <p>
-  <%= render 'groups', model: @lodging %>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Vacation</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @lodging.groups.each do |group| %>
+        <tr>
+          <td><%= link_to group.id, group %></td>
+          <td><%= link_to group.vacation.name, group.vacation %></td>
+          <td><%= link_to 'Remove from group', 
+                  remove_lodging_from_group_path(id: @lodging.id, group_id: group.id), 
+                  method: :post, 
+                  data: { confirm: 'Are you sure?' },
+                  class: "btn btn-sm btn-outline-danger" %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 </p>
+<p>
+  <button class="btn btn-success" type="button" data-toggle="collapse" data-target="#addGroup" aria-expanded="false" aria-controls="addGroup">
+    Add group
+  </button>
+</p>
+<div class="collapse" id="addGroup">
+  <div class="card card-body">
+    <%= form_with(url: add_lodging_to_group_path, local: true) do |form| %>
+        <div class="field">
+            <%= form.label :groups %>
+            <%= form.grouped_collection_select(:group_id, Vacation.all, :groups, :name, :id, :id, {}) %>
+        </div>
+
+        <div class="modal-footer">
+            <%= form.submit class: "btn btn-primary actions" %>
+        </div>
+    <% end %>
+  </div>
+</div>
 
 <%= link_to 'Edit', edit_lodging_path(@lodging) %> |
 <%= link_to 'Back', lodgings_path %>
