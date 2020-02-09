@@ -7,7 +7,11 @@
       <% end %>
       <th>Counselors</th>
       <th>Number of participants</th>
-      <th colspan="3"></th>
+      <th colspan="3">
+        <% if model.class.name == "Vacation" %>
+          <%= button_to 'Add group', groups_path, params: {group: { vacation_id: model.id } }, class: 'btn-sm btn-outline-success' %>
+        <% end %>
+      </th>
     </tr>
   </thead>
 
@@ -24,9 +28,9 @@
             <% end %>
         </td>
         <td><%= group.participants.count %></td>
-        <td><%= link_to 'Show', group %></td>
-        <td><%= link_to 'Edit', edit_group_path(group) %></td>
-        <td><%= link_to 'Destroy', group, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', group, class:"btn-sm btn-outline" %></td>
+        <td><%= link_to 'Edit', edit_group_path(group, class:"btn-sm btn-outline")  %></td>
+        <td><%= link_to 'Destroy', group, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn-sm btn-outline-danger" %></td>
       </tr>
     <% end %>
   </tbody>

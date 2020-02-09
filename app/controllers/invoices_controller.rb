@@ -14,6 +14,7 @@ class InvoicesController < ApplicationController
 
   # GET /invoices/new
   def new
+    session[:return_to] ||= request.referer
     @invoice = Invoice.new(new_invoice_params)
   end
 
@@ -28,7 +29,7 @@ class InvoicesController < ApplicationController
 
     respond_to do |format|
       if @invoice.save
-        format.html { redirect_to @invoice, notice: 'Invoice was successfully created.' }
+        format.html { redirect_to session.delete(:return_to) || @invoice, notice: 'Invoice was successfully created.' }
         format.json { render :show, status: :created, location: @invoice }
       else
         format.html { render :new }
@@ -56,7 +57,7 @@ class InvoicesController < ApplicationController
   def destroy
     @invoice.destroy
     respond_to do |format|
-      format.html { redirect_to invoices_url, notice: 'Invoice was successfully destroyed.' }
+      format.html { redirect_to request.referer || invoices_url, notice: 'Invoice was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
