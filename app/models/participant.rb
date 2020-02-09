@@ -2,6 +2,10 @@ class Participant < ApplicationRecord
     has_many :participations
     has_many :groups, through: :participations
     has_many :payments, through: :participations
+    validates :pesel, length: { is: 11 }, numericality: { only_integer: true }
+    validates :name, presence: true
+    validates :surname, presence: true
+    validates :phone_number, presence: true
 
     def full_name
         name + " " + surname
