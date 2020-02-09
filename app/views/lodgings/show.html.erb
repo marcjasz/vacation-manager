@@ -35,5 +35,11 @@
   <%= @lodging.email %>
 </p>
 
+<br>
+<h4>Groups</h4>
+<p>
+  <%= render 'groups', model: @lodging %>
+</p>
+
 <%= link_to 'Edit', edit_lodging_path(@lodging) %> |
 <%= link_to 'Back', lodgings_path %>

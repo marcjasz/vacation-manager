@@ -2,6 +2,9 @@
   <thead>
     <tr>
       <th>Id</th>
+      <% unless model.class.name == "Vacation" %>
+        <th>Vacation</th>
+      <% end %>
       <th>Counselors</th>
       <th>Number of participants</th>
       <th colspan="3"></th>
@@ -9,9 +12,12 @@
   </thead>
 
   <tbody>
-    <% vacation.groups.each do |group| %>
+    <% model.groups.each do |group| %>
       <tr>
         <td><%= group.id %></td>
+        <% unless model.class.name == "Vacation" %>
+          <td><%= group.vacation.name %></td>
+        <% end %>
         <td>
             <% group.counselors.each do |counselor| %>
                 <%= link_to counselor.full_name, counselor %>
