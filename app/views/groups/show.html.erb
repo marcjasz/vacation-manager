@@ -1,8 +1,9 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Vacation:</strong>
+  <h4>
   <%= link_to @group.vacation.name, vacation_path(@group.vacation) %> 
+  - group <%= @group.id %> 
+  </h4>
 </p>
 
 <p>
