@@ -10,137 +10,99 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_10_085933) do
+ActiveRecord::Schema.define(version: 2020_02_12_124159) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "counselors", force: :cascade do |t|
-    t.string "pesel", limit: 13, null: false
-    t.string "name", null: false
-    t.string "surname", null: false
-    t.string "address", null: false
-    t.string "phone_number", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["pesel"], name: "index_counselors_on_pesel", unique: true
+  create_table "counselors", primary_key: "pesel", id: :string, limit: 11, force: :cascade do |t|
+    t.string "name", limit: 20, null: false
+    t.string "surname", limit: 40, null: false
+    t.string "address", limit: 50, null: false
+    t.string "phone_number", limit: 12, null: false
   end
 
-  create_table "counselors_groups", id: false, force: :cascade do |t|
-    t.bigint "group_id", null: false
-    t.bigint "counselor_id", null: false
-    t.index ["counselor_id"], name: "index_counselors_groups_on_counselor_id"
-    t.index ["group_id"], name: "index_counselors_groups_on_group_id"
+  create_table "group_supervision", primary_key: ["counselors_pesel", "groups_id"], force: :cascade do |t|
+    t.string "counselors_pesel", limit: 11, null: false
+    t.integer "groups_id", null: false
   end
 
-  create_table "groups", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.bigint "vacation_id"
-    t.index ["vacation_id"], name: "index_groups_on_vacation_id"
+  create_table "groups", id: :serial, force: :cascade do |t|
+    t.string "vacation_name", limit: 50, null: false
   end
 
-  create_table "groups_lodgings", id: false, force: :cascade do |t|
-    t.bigint "group_id", null: false
-    t.bigint "lodging_id", null: false
-    t.index ["group_id"], name: "index_groups_lodgings_on_group_id"
-    t.index ["lodging_id"], name: "index_groups_lodgings_on_lodging_id"
+  create_table "hostings", primary_key: ["groups_id", "lodgings_name"], force: :cascade do |t|
+    t.integer "groups_id", null: false
+    t.string "lodgings_name", limit: 50, null: false
   end
 
-  create_table "invoices", force: :cascade do |t|
+  create_table "invoices", primary_key: "invoices_number", id: :serial, force: :cascade do |t|
     t.date "date", null: false
-    t.decimal "amount", null: false
-    t.string "service", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.bigint "service_provider_id"
-    t.bigint "vacation_id"
-    t.string "organizer_nip"
-    t.string "service_provider_nip"
-    t.index ["service_provider_id"], name: "index_invoices_on_service_provider_id"
-    t.index ["vacation_id"], name: "index_invoices_on_vacation_id"
+    t.decimal "amount", precision: 12, scale: 2, null: false
+    t.string "service_providers_nip", limit: 10, null: false
+    t.string "organizer_nip", limit: 10, null: false
+    t.string "vacation_name", limit: 50, null: false
+    t.string "service", limit: 100, null: false
   end
 
-  create_table "lodgings", force: :cascade do |t|
-    t.string "owner"
-    t.string "company"
-    t.integer "capacity"
-    t.string "address"
-    t.string "name"
-    t.string "phone_number"
-    t.string "email"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["name"], name: "index_lodgings_on_name", unique: true
+  create_table "lodgings", primary_key: "name", id: :string, limit: 50, force: :cascade do |t|
+    t.string "address", limit: 50, null: false
+    t.integer "capacity", null: false
+    t.string "owner", limit: 50, null: false
+    t.string "phone_number", limit: 12, null: false
+    t.string "email", limit: 40
+    t.string "company", limit: 50, null: false
   end
 
-  create_table "organizers", force: :cascade do |t|
-    t.string "nip", null: false
-    t.string "email"
-    t.string "name", null: false
-    t.string "address", null: false
-    t.string "phone_number", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["nip"], name: "index_organizers_on_nip", unique: true
+  create_table "organizers", primary_key: "nip", id: :string, limit: 10, force: :cascade do |t|
+    t.string "name", limit: 50, null: false
+    t.string "address", limit: 50, null: false
+    t.string "phone_number", limit: 12, null: false
+    t.string "email", limit: 40
   end
 
-  create_table "participants", force: :cascade do |t|
-    t.string "pesel", limit: 11, null: false
-    t.string "name", null: false
-    t.string "surname", null: false
-    t.string "school"
-    t.string "phone_number", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["pesel"], name: "index_participants_on_pesel", unique: true
+  create_table "participants", primary_key: "pesel", id: :string, limit: 11, force: :cascade do |t|
+    t.string "name", limit: 20, null: false
+    t.string "surname", limit: 40, null: false
+    t.string "school", limit: 100
+    t.string "phone_number", limit: 12, null: false
   end
 
-  create_table "participations", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.bigint "group_id"
-    t.bigint "participant_id"
-    t.index ["group_id"], name: "index_participations_on_group_id"
-    t.index ["participant_id"], name: "index_participations_on_participant_id"
+  create_table "participations", primary_key: ["participants_pesel", "groups_id"], force: :cascade do |t|
+    t.string "participants_pesel", limit: 11, null: false
+    t.integer "groups_id", null: false
   end
 
-  create_table "payments", force: :cascade do |t|
-    t.decimal "amount", null: false
+  create_table "payments", id: :serial, force: :cascade do |t|
+    t.decimal "amount", precision: 12, scale: 2, null: false
     t.date "date", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.bigint "participation_id"
-    t.index ["participation_id"], name: "index_payments_on_participation_id"
+    t.string "participants_pesel", limit: 11, null: false
+    t.integer "groups_id", null: false
   end
 
-  create_table "service_providers", force: :cascade do |t|
-    t.string "nip"
-    t.string "address"
-    t.string "name"
-    t.string "phone_number"
-    t.string "email"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["nip"], name: "index_service_providers_on_nip", unique: true
+  create_table "service_providers", primary_key: "nip", id: :string, limit: 10, force: :cascade do |t|
+    t.string "address", limit: 50, null: false
+    t.string "name", limit: 50, null: false
+    t.string "phone_number", limit: 12, null: false
+    t.string "email", limit: 40, null: false
   end
 
-  create_table "vacations", force: :cascade do |t|
-    t.string "name", null: false
+  create_table "vacations", primary_key: "name", id: :string, limit: 50, force: :cascade do |t|
+    t.string "organizer_nip", limit: 10, null: false
     t.date "start_date", null: false
     t.date "end_date", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.bigint "organizer_id"
-    t.index ["name"], name: "index_vacations_on_name", unique: true
-    t.index ["organizer_id"], name: "index_vacations_on_organizer_id"
   end
 
-  add_foreign_key "groups", "vacations"
-  add_foreign_key "invoices", "service_providers"
-  add_foreign_key "invoices", "vacations"
-  add_foreign_key "participations", "groups"
-  add_foreign_key "participations", "participants"
-  add_foreign_key "payments", "participations"
-  add_foreign_key "vacations", "organizers"
+  add_foreign_key "group_supervision", "counselors", column: "counselors_pesel", primary_key: "pesel", name: "group_supervision_counselors_fk"
+  add_foreign_key "group_supervision", "groups", column: "groups_id", name: "group_supervision_group_fk"
+  add_foreign_key "groups", "vacations", column: "vacation_name", primary_key: "name", name: "groups_vacations_fk"
+  add_foreign_key "hostings", "groups", column: "groups_id", name: "hostings_groups_fk"
+  add_foreign_key "hostings", "lodgings", column: "lodgings_name", primary_key: "name", name: "hostings_lodgings_fk"
+  add_foreign_key "invoices", "organizers", column: "organizer_nip", primary_key: "nip", name: "invoices_organizers_fk"
+  add_foreign_key "invoices", "service_providers", column: "service_providers_nip", primary_key: "nip", name: "invoices_service_providers_fk"
+  add_foreign_key "invoices", "vacations", column: "vacation_name", primary_key: "name", name: "invoices_vacations_fk"
+  add_foreign_key "participations", "groups", column: "groups_id", name: "participations_group_fk"
+  add_foreign_key "participations", "participants", column: "participants_pesel", primary_key: "pesel", name: "participations_participants_fk"
+  add_foreign_key "payments", "participations", column: "participants_pesel", primary_key: "participants_pesel", name: "payments_participations_fk"
+  add_foreign_key "vacations", "organizers", column: "organizer_nip", primary_key: "nip", name: "vacations_organizers_fk"
 end
