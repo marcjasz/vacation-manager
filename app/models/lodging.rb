@@ -1,9 +1,11 @@
 class Lodging < ApplicationRecord
-    has_and_belongs_to_many :groups
+    has_and_belongs_to_many :groups, join_table: 'hostings', foreign_key: 'lodging_name'
     validates :owner, presence: true
     validates :company, presence: true
     validates :capacity, presence: true
     validates :address, presence: true
     validates :name, presence: true, uniqueness: true
     validates :phone_number, presence: true
+
+    self.primary_key = 'name'
 end

@@ -1,10 +1,12 @@
 class Participation < ApplicationRecord
-    belongs_to :participant
+    belongs_to :participant, foreign_key: 'participant_pesel'
     belongs_to :group
-    has_many :payments, inverse_of: :participation, dependent: :destroy
+    has_many :payments, inverse_of: :participation, foreign_key: [:participant_pesel, :group_id]
     delegate :vacation_id, to: :group
 
     validate :participant_unique_per_vacation
+
+    self.primary_keys = 'participant_pesel', 'group_id'
 
     private
 

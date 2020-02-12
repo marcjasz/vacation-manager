@@ -17,26 +17,26 @@ class InitSchema < ActiveRecord::Migration[6.0]
           vacation_name   VARCHAR(50) NOT NULL);
 
         CREATE TABLE group_supervision (
-          counselors_pesel   VARCHAR(11) NOT NULL,
-          groups_id          INTEGER NOT NULL
+          counselor_pesel   VARCHAR(11) NOT NULL,
+          group_id          INTEGER NOT NULL
         );
 
-        ALTER TABLE group_supervision ADD CONSTRAINT group_supervision_pk PRIMARY KEY ( counselors_pesel,
-                                                                                      groups_id );
+        ALTER TABLE group_supervision ADD CONSTRAINT group_supervision_pk PRIMARY KEY ( counselor_pesel,
+                                                                                      group_id );
 
         CREATE TABLE hostings (
-          groups_id       INTEGER NOT NULL,
-          lodgings_name   VARCHAR(50) NOT NULL
+          group_id       INTEGER NOT NULL,
+          lodging_name   VARCHAR(50) NOT NULL
         );
 
-        ALTER TABLE hostings ADD CONSTRAINT hostings_pk PRIMARY KEY ( groups_id,
-                                                                  lodgings_name );
+        ALTER TABLE hostings ADD CONSTRAINT hostings_pk PRIMARY KEY ( group_id,
+                                                                  lodging_name );
 
         CREATE TABLE invoices (
-          invoices_number         SERIAL PRIMARY KEY,
+          invoice_number         SERIAL PRIMARY KEY,
           "date"                 DATE NOT NULL,
           amount                 NUMERIC(12, 2) NOT NULL,
-          service_providers_nip   VARCHAR(10) NOT NULL,
+          service_provider_nip   VARCHAR(10) NOT NULL,
           organizer_nip          VARCHAR(10) NOT NULL,
           vacation_name          VARCHAR(50) NOT NULL,
           service                VARCHAR(100) NOT NULL
@@ -77,19 +77,19 @@ class InitSchema < ActiveRecord::Migration[6.0]
         ALTER TABLE participants ADD CONSTRAINT participants_pk PRIMARY KEY ( pesel );
 
         CREATE TABLE participations (
-          participants_pesel   VARCHAR(11) NOT NULL,
-          groups_id            INTEGER NOT NULL
+          participant_pesel   VARCHAR(11) NOT NULL,
+          group_id            INTEGER NOT NULL
         );
 
-        ALTER TABLE participations ADD CONSTRAINT participations_pk PRIMARY KEY ( participants_pesel,
-                                                                              groups_id );
+        ALTER TABLE participations ADD CONSTRAINT participations_pk PRIMARY KEY ( participant_pesel,
+                                                                              group_id );
 
         CREATE TABLE payments (
           id                  SERIAL PRIMARY KEY,
           amount              NUMERIC(12, 2) NOT NULL,
           "date"              DATE NOT NULL,
-          participants_pesel   VARCHAR(11) NOT NULL,
-          groups_id            INTEGER NOT NULL
+          participant_pesel   VARCHAR(11) NOT NULL,
+          group_id            INTEGER NOT NULL
         );
 
         ALTER TABLE payments ADD CONSTRAINT payment_amount_positive CHECK ( amount > 0 );
@@ -116,31 +116,31 @@ class InitSchema < ActiveRecord::Migration[6.0]
         ALTER TABLE vacations ADD CONSTRAINT vacations_pk PRIMARY KEY ( name );
 
         ALTER TABLE group_supervision
-          ADD CONSTRAINT group_supervision_counselors_fk FOREIGN KEY ( counselors_pesel )
-              REFERENCES counselors ( pesel );
+          ADD CONSTRAINT group_supervision_counselors_fk FOREIGN KEY ( counselor_pesel )
+              REFERENCES counselors ( pesel ) ON DELETE CASCADE;
 
         ALTER TABLE group_supervision
-          ADD CONSTRAINT group_supervision_group_fk FOREIGN KEY ( groups_id )
-              REFERENCES "groups" ( id );
+          ADD CONSTRAINT group_supervision_group_fk FOREIGN KEY ( group_id )
+              REFERENCES "groups" ( id ) ON DELETE CASCADE;
 
         ALTER TABLE "groups"
           ADD CONSTRAINT groups_vacations_fk FOREIGN KEY ( vacation_name )
               REFERENCES vacations ( name );
 
         ALTER TABLE hostings
-          ADD CONSTRAINT hostings_groups_fk FOREIGN KEY ( groups_id )
-              REFERENCES "groups" ( id );
+          ADD CONSTRAINT hostings_groups_fk FOREIGN KEY ( group_id )
+              REFERENCES "groups" ( id ) ON DELETE CASCADE;
 
         ALTER TABLE hostings
-          ADD CONSTRAINT hostings_lodgings_fk FOREIGN KEY ( lodgings_name )
-              REFERENCES lodgings ( name );
+          ADD CONSTRAINT hostings_lodgings_fk FOREIGN KEY ( lodging_name )
+              REFERENCES lodgings ( name ) ON DELETE CASCADE;
 
         ALTER TABLE invoices
           ADD CONSTRAINT invoices_organizers_fk FOREIGN KEY ( organizer_nip )
               REFERENCES organizers ( nip );
 
         ALTER TABLE invoices
-          ADD CONSTRAINT invoices_service_providers_fk FOREIGN KEY ( service_providers_nip )
+          ADD CONSTRAINT invoices_service_providers_fk FOREIGN KEY ( service_provider_nip )
               REFERENCES service_providers ( nip );
 
         ALTER TABLE invoices
@@ -148,18 +148,18 @@ class InitSchema < ActiveRecord::Migration[6.0]
               REFERENCES vacations ( name );
 
         ALTER TABLE participations
-          ADD CONSTRAINT participations_group_fk FOREIGN KEY ( groups_id )
-              REFERENCES "groups" ( id );
+          ADD CONSTRAINT participations_group_fk FOREIGN KEY ( group_id )
+              REFERENCES "groups" ( id ) ON DELETE CASCADE;
 
         ALTER TABLE participations
-          ADD CONSTRAINT participations_participants_fk FOREIGN KEY ( participants_pesel )
-              REFERENCES participants ( pesel );
+          ADD CONSTRAINT participations_participants_fk FOREIGN KEY ( participant_pesel )
+              REFERENCES participants ( pesel ) ON DELETE CASCADE;
 
         ALTER TABLE payments
-          ADD CONSTRAINT payments_participations_fk FOREIGN KEY ( participants_pesel,
-                                                                groups_id )
-              REFERENCES participations ( participants_pesel,
-                                        groups_id );
+          ADD CONSTRAINT payments_participations_fk FOREIGN KEY ( participant_pesel,
+                                                                group_id )
+              REFERENCES participations ( participant_pesel,
+                                        group_id );
 
         ALTER TABLE vacations
           ADD CONSTRAINT vacations_organizers_fk FOREIGN KEY ( organizer_nip )
