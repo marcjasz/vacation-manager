@@ -93,7 +93,7 @@ class CounselorsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_counselor
-      @counselor = Counselor.find(params[:id])
+      @counselor = Counselor.find(params[:pesel])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
@@ -102,6 +102,6 @@ class CounselorsController < ApplicationController
     end
 
     def group_params
-      params.permit(:id, :group_id)
+      params.permit(:pesel, :group_id)
     end
 end

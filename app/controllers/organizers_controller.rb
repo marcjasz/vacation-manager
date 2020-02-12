@@ -54,17 +54,21 @@ class OrganizersController < ApplicationController
   # DELETE /organizers/1
   # DELETE /organizers/1.json
   def destroy
-    @organizer.destroy
     respond_to do |format|
-      format.html { redirect_to organizers_url, notice: 'Organizer was successfully destroyed.' }
-      format.json { head :no_content }
+      if @organizer.destroy
+        format.html { redirect_to organizers_url, notice: 'Organizer was successfully destroyed.' }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to organizers_url, alert: @organizer.errors.full_messages.join(',') }
+        format.json { render json: @organizer.errors, status: :unprocessable_entity }
+      end
     end
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_organizer
-      @organizer = Organizer.find(params[:id])
+      @organizer = Organizer.find(params[:nip])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

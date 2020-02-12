@@ -5,5 +5,4 @@ class Invoice < ApplicationRecord
     validates :service, presence: true
 
     self.primary_key = 'invoice_number'
-
 end

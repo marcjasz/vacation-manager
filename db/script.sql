@@ -129,7 +129,7 @@ ALTER TABLE group_supervision
 
 ALTER TABLE "Group"
     ADD CONSTRAINT group_vacation_fk FOREIGN KEY ( vacation_name )
-        REFERENCES vacation ( name );
+        REFERENCES vacation ( name ) ON UPDATE CASCADE;
 
 ALTER TABLE hosting
     ADD CONSTRAINT hosting_group_fk FOREIGN KEY ( group_id )
@@ -137,7 +137,7 @@ ALTER TABLE hosting
 
 ALTER TABLE hosting
     ADD CONSTRAINT hosting_lodging_fk FOREIGN KEY ( lodging_name )
-        REFERENCES lodging ( name );
+        REFERENCES lodging ( name ) ON UPDATE CASCADE;
 
 ALTER TABLE invoice
     ADD CONSTRAINT invoice_organizer_fk FOREIGN KEY ( organizer_nip )
@@ -149,7 +149,7 @@ ALTER TABLE invoice
 
 ALTER TABLE invoice
     ADD CONSTRAINT invoice_vacation_fk FOREIGN KEY ( vacation_name )
-        REFERENCES vacation ( name );
+        REFERENCES vacation ( name ) ON UPDATE CASCADE;
 
 ALTER TABLE participation
     ADD CONSTRAINT participation_group_fk FOREIGN KEY ( group_id )

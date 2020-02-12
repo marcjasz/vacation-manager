@@ -93,7 +93,7 @@ class LodgingsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_lodging
-      @lodging = Lodging.find(params[:id])
+      @lodging = Lodging.find(params[:name])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
@@ -102,6 +102,6 @@ class LodgingsController < ApplicationController
     end
 
     def group_params
-      params.permit(:id, :group_id)
+      params.permit(:name, :group_id)
     end
 end

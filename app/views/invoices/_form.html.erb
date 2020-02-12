@@ -28,12 +28,12 @@
 
   <div class="field">
       <%= form.label :vacation %>
-      <%= form.collection_select(:vacation_id, Vacation.all, :id, :name, prompt: true) %>
+      <%= form.collection_select(:vacation_name, Vacation.all, :name, :name, prompt: true) %>
   </div>
 
   <div class="field">
       <%= form.label :service_provider %>
-      <%= form.collection_select(:service_provider_id, ServiceProvider.all, :id, :name, prompt: true) %>
+      <%= form.collection_select(:service_provider_nip, ServiceProvider.all, :nip, :name, prompt: true) %>
   </div>
 
   <div class="actions">

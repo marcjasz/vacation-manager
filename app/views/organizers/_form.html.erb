@@ -18,7 +18,7 @@
 
   <div class="field">
     <%= form.label :nip %>
-    <%= form.text_field :nip %>
+    <%= form.text_field :nip, readonly: form.object.persisted? %>
   </div>
 
   <div class="field">

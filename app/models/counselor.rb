@@ -5,6 +5,7 @@ class Counselor < ApplicationRecord
     validates :surname, presence: true
     validates :phone_number, presence: true
     validates :address, presence: true
+    attr_readonly :pesel
 
     self.primary_key = 'pesel'
 

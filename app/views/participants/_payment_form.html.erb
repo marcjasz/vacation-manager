@@ -1,12 +1,12 @@
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-outline-success btn-sm mx-3" data-toggle="modal" data-target="#form-<%= participation.id %>">
+<button type="button" class="btn btn-outline-success btn-sm mx-3" data-toggle="modal" data-target="#form-<%= participation.group_id %>">
     <% if action == 'new' %>
         Add
     <% end %>
 </button>
 
 <!-- Modal -->
-<div class="modal fade" id="form-<%= participation.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade" id="form-<%= participation.group_id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -27,7 +27,9 @@
                 <%= form.date_select :date %>
             </div>
 
-            <%= form.hidden_field :participation_id, value: participation.id %>
+            <%= form.hidden_field :participant_pesel, value: participation.participant_pesel %>
+
+            <%= form.hidden_field :group_id, value: participation.group_id %>
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

@@ -13,7 +13,7 @@
 
   <div class="field">
     <%= form.label :pesel %>
-    <%= form.text_field :pesel %>
+    <%= form.text_field :pesel, readonly: form.object.persisted? %>
   </div>
 
   <div class="field">

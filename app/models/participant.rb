@@ -13,7 +13,7 @@ class Participant < ApplicationRecord
         name + " " + surname
     end
 
-    def payments_sum
-        ActiveRecord::Base.connection.execute("SELECT payments_sum(#{id})").values.flatten.first.to_d
-    end
+    # def payments_sum
+        # ActiveRecord::Base.connection.execute("SELECT payments_sum(#{id})").values.flatten.first.to_d
+    # end
 end

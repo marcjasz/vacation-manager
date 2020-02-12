@@ -54,21 +54,25 @@ class VacationsController < ApplicationController
   # DELETE /vacations/1
   # DELETE /vacations/1.json
   def destroy
-    @vacation.destroy
     respond_to do |format|
-      format.html { redirect_to vacations_url, notice: 'Vacation was successfully destroyed.' }
-      format.json { head :no_content }
+      if @vacation.destroy
+        format.html { redirect_to vacations_url, notice: 'Vacation was successfully destroyed.' }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to vacations_url, alert: @vacation.errors.full_messages.join(',') }
+        format.json { render json: @vacation.errors, status: :unprocessable_entity }
+      end
     end
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_vacation
-      @vacation = Vacation.find(params[:id])
+      @vacation = Vacation.find(params[:name])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def vacation_params
-      params.require(:vacation).permit(:start_date, :end_date, :name, :organizer_id)
+      params.require(:vacation).permit(:start_date, :end_date, :name, :organizer_nip)
     end
 end

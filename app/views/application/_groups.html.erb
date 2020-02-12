@@ -9,7 +9,7 @@
       <th>Number of participants</th>
       <th colspan="3">
         <% if model.class.name == "Vacation" %>
-          <%= button_to 'Add group', groups_path, params: {group: { vacation_id: model.id } }, class: 'btn-sm btn-outline-success' %>
+          <%= button_to 'Add group', groups_path, params: {group: { vacation_name: model.name } }, class: 'btn-sm btn-outline-success' %>
         <% end %>
       </th>
     </tr>

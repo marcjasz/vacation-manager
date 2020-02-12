@@ -54,17 +54,21 @@ class ServiceProvidersController < ApplicationController
   # DELETE /service_providers/1
   # DELETE /service_providers/1.json
   def destroy
-    @service_provider.destroy
     respond_to do |format|
-      format.html { redirect_to service_providers_url, notice: 'Service provider was successfully destroyed.' }
-      format.json { head :no_content }
+      if @service_provider.destroy
+        format.html { redirect_to service_providers_url, notice: 'Service provider was successfully destroyed.' }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to service_providers_url, alert: @service_provider.errors.full_messages.join(',') }
+        format.json { render json: @service_provider.errors, status: :unprocessable_entity }
+      end
     end
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_service_provider
-      @service_provider = ServiceProvider.find(params[:id])
+      @service_provider = ServiceProvider.find(params[:nip])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
