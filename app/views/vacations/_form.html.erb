@@ -28,7 +28,7 @@
 
   <div class ="field">
     <%= form.label :organizer %>
-    <%= form.collection_select(:organizer_id, Organizer.all, :id, :name, prompt: true) %>
+    <%= form.collection_select(:organizer_nip, Organizer.all, :nip, :name, prompt: true) %>
   </div>
 
   <div class="actions">

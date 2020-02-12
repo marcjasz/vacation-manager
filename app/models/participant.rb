@@ -5,7 +5,7 @@ class Participant < ApplicationRecord
     validates :pesel, length: { is: 11 }, numericality: { only_integer: true }, uniqueness: true
     validates :name, presence: true
     validates :surname, presence: true
-    validates :phone_number, presence: true
+    validates :phone_number, presence: true, numericality: true, length: { maximum: 12 }
 
     self.primary_key = 'pesel'
 
@@ -13,7 +13,7 @@ class Participant < ApplicationRecord
         name + " " + surname
     end
 
-    # def payments_sum
-        # ActiveRecord::Base.connection.execute("SELECT payments_sum(#{id})").values.flatten.first.to_d
-    # end
+    def payments_sum
+        ActiveRecord::Base.connection.execute("SELECT payments_sum('#{pesel}')").values.flatten.first.to_d
+    end
 end

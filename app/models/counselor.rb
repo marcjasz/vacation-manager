@@ -3,7 +3,7 @@ class Counselor < ApplicationRecord
     validates :pesel, length: { is: 11 }, numericality: { only_integer: true }, uniqueness: true
     validates :name, presence: true
     validates :surname, presence: true
-    validates :phone_number, presence: true
+    validates :phone_number, presence: true, numericality: true, length: { maximum: 12 }
     validates :address, presence: true
     attr_readonly :pesel
 

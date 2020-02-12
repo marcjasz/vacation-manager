@@ -31,7 +31,7 @@ class PaymentsController < ApplicationController
         format.html { redirect_to @payment.participant, notice: 'Payment was successfully created.' }
         format.json { render :show, status: :created, location: @payment.participant }
       else
-        format.html { redirect_to @payment.participant }
+        format.html { redirect_to @payment.participant, alert: @payment.errors.full_messages.join(', ') }
         format.json { render json: @payment.errors, status: :unprocessable_entity }
       end
     end
@@ -42,10 +42,10 @@ class PaymentsController < ApplicationController
   def update
     respond_to do |format|
       if @payment.update(payment_params)
-        format.html { redirect_to @payment, notice: 'Payment was successfully updated.' }
+        format.html { redirect_to @payment.participant, notice: 'Payment was successfully updated.' }
         format.json { render :show, status: :ok, location: @payment }
       else
-        format.html { render :edit }
+        format.html { redirect_to @payment.participant, alert: @payment.errors.full_messages.join(', ') }
         format.json { render json: @payment.errors, status: :unprocessable_entity }
       end
     end

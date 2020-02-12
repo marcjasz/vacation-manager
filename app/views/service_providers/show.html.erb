@@ -31,7 +31,7 @@
 </div>
 
 <p>
-  <%= link_to 'Add invoice', new_invoice_path(service_provider_id: @service_provider.id), class: 'btn-sm btn-outline-success' %>
+  <%= link_to 'Add invoice', new_invoice_path(service_provider_nip: @service_provider.nip), class: 'btn-sm btn-outline-success' %>
 </p>
 
 <%= link_to 'Edit', edit_service_provider_path(@service_provider) %> |

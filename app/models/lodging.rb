@@ -5,7 +5,7 @@ class Lodging < ApplicationRecord
     validates :capacity, presence: true
     validates :address, presence: true
     validates :name, presence: true, uniqueness: true
-    validates :phone_number, presence: true
+    validates :phone_number, presence: true, numericality: true, length: { maximum: 12 }
 
     self.primary_key = 'name'
 end
