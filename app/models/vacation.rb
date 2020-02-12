@@ -11,6 +11,6 @@ class Vacation < ApplicationRecord
 
     def start_must_be_before_end_date
         errors.add(:start_date, "must be before end date") unless
-            start_date < end_date
+            start_date <= end_date
     end 
 end

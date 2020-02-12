@@ -12,6 +12,7 @@
     <tr>
         <td><%= payment.date %></td>
         <td><%= payment.amount %></td>
+        <td><%= link_to 'Delete', payment, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn-sm btn-outline-danger" %></td>
     </tr>
     <% end %>
 </tbody>
